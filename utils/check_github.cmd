@@ -12,7 +12,7 @@
 
 :: Check AWS lambda dev scripts with github 
 :: ========================================
-ECHO [%ME%] [INFO ] Are we up to date with the Local Conda scripts? ...
+ECHO [%ME%] [INFO ] Are we up to date with the Local venv scripts? ...
 git remote update
 ECHO.
 ::    -s, --short           show status concisely
