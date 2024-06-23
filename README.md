@@ -3,7 +3,7 @@
 ## Install in folder (which might hold additional files).
 ```
 git init
-git remote add origin git@github.com:pierre-pvln/deploy_on_local-conda.git
+git remote add origin git@github.com:pierre-pvln/deploy_on_local-venv.git
 git remote -v
 git fetch --all
 git reset --hard origin/master
@@ -53,12 +53,14 @@ THE PROJECT
 |   +---conf
 |   |   +---_aws_lambda
 |   |   +---_heroku
-|   |   +---_legion-2020-conda                        << FOLDER USED HERE 
-|   |   |       environment.yml.EXAMPLE               << FILE USED HERE
+|   |   +---_legion-2020-conda 
+|   |   +---_legion-2020-venv                         << FOLDER USED HERE 
+|   |   |       requirements.txt.EXAMPLE              << FILE USED HERE
 |   |   |       _env_name.txt                         << FILE USED HERE
-|   |   \---_legion-2020-venv
+|   |   \---_leg
+ion-2020-venv
 |   |           
-|   \---venv
+|   \---.venv
 |
 +---deploy_on
 |   +---create_exe
@@ -71,7 +73,7 @@ THE PROJECT
 |   +---_AWS_lambda                                   
 |   +---_heroku
 |   |       
-|   +---_legion-2020-conda                            << FOLDER USED HERE (THIS SCRIPT)
+|   +---_legion-2020-venv                            << FOLDER USED HERE (THIS SCRIPT)
 |   |   |   .gitattributes
 |   |   |   .gitignore
 |   |   |   CHANGELOG.md
@@ -92,12 +94,11 @@ THE PROJECT
 |   |   +---packages
 |   |   |       .gitignore
 |   |   |       Command Prompt.lnk
-|   |   |       conda_env_as-built.yml
-|   |   |       create_conda_env_from_file.cmd
-|   |   |       export_conda_env.cmd
-|   |   |       remove_conda_env.cmd
-|   |   |       update_conda_env_from_file.cmd
-|   |   |       update_conda_in_base.cmd
+|   |   |       venv_env_as-built.yml
+|   |   |       create_venv_env_from_file.cmd
+|   |   |       export_venv_env.cmd
+|   |   |       remove_venv_env.cmd
+|   |   |       update_venv_env_from_file.cmd
 |   |   |       
 |   |   \---utils
 |   |           check_github.cmd
