@@ -1,0 +1,16 @@
+# =============================================================================
+#
+# @package    ipheion deployment scripts
+# @container  
+# @name       .gitattibutes
+# @purpose    Set behavior for git
+# @version    v0.0.1  2022-04-29
+# @author     pierre@ipheion.eu
+# @copyright  (C) 2020-2021 Pierre Veelen
+#
+# =============================================================================
+
+# Set default behavior to automatically normalize line endings.
+* text=auto encoding=UTF-8
+*.sh  text eol=lf
+*.cmd text eol=crlf

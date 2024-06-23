@@ -1,0 +1,63 @@
+@ECHO off
+SETLOCAL ENABLEEXTENSIONS
+
+:: BASIC SETTINGS
+:: ==============
+:: Setting the name of the script
+SET ME=%~n0
+:: Setting the name of the directory
+SET PARENT=%~p0
+SET PDRIVE=%~d0
+:: Setting the directory and drive of this commandfile
+SET CMD_DIR=%~dp0
+
+CD "%IDE_START_DIR%\py_app"
+
+ECHO [%ME%] [INFO   ] running black ...
+ECHO.
+:: https://black.readthedocs.io/
+::
+call black --version
+echo.
+call black 
+echo.
+
+ECHO [%ME%] [INFO   ] running flake8 ...
+ECHO.
+:: https://flake8.pycqa.org/
+::
+call flake8 --version
+echo.
+call flake8 --append-config="%IDE_START_DIR%\py_conf\_legion-2020-conda\.pyproject.toml" --output-file=CCF_flake8_output.txt "%IDE_START_DIR%\py_app"
+echo.
+
+ECHO [%ME%] [INFO   ] running isort ...
+ECHO.
+:: https://pycqa.github.io/isort/
+::
+call isort --version
+echo.
+call isort "%IDE_START_DIR%\py_app" --show-config
+echo.
+
+ECHO [%ME%] [INFO   ] running interrogate ...
+ECHO.
+:: https://interrogate.readthedocs.io/
+::
+call interrogate --version
+echo.
+call interrogate -vv --output CCF_interrogate_output.txt "%IDE_START_DIR%\py_app"
+echo.
+
+
+GOTO CLEAN_EXIT_SUBSCRIPT
+
+:ERROR_EXIT_SUBSCRIPT
+ECHO.
+ECHO %ERROR_MESSAGE%
+ECHO.
+EXIT /B 1
+
+:CLEAN_EXIT_SUBSCRIPT
+ECHO.
+EXIT /B 0
