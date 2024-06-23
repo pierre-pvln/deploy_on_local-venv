@@ -43,24 +43,21 @@ Requires the following folder structure
 THE PROJECT
 +---code
 |   +---.idea
-|   +---app
+|   +---py_app
+|   |   +---.venv
 |   |   |   the_app.py
 |   |   +---build
 |   |   +---dist
 |   |   +---input
 |   |   \---output
 |   |
-|   +---conf
-|   |   +---_aws_lambda
-|   |   +---_heroku
-|   |   +---_legion-2020-conda 
-|   |   +---_legion-2020-venv                         << FOLDER USED HERE 
-|   |   |       requirements.txt.EXAMPLE              << FILE USED HERE
-|   |   |       _env_name.txt                         << FILE USED HERE
-|   |   \---_leg
-ion-2020-venv
-|   |           
-|   \---.venv
+|   \---py_conf
+|       +---_aws_lambda
+|       +---_heroku
+|       +---_legion-2020-conda 
+|       \---_legion-2020-venv                         << FOLDER USED HERE 
+|               requirements.txt.EXAMPLE              << FILE USED HERE
+|               _env_name.txt                         << FILE USED HERE
 |
 +---deploy_on
 |   +---create_exe
