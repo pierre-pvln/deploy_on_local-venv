@@ -18,13 +18,13 @@ SET "IDE_START_DIR=%CD%"
 IF "%COMPUTERNAME%"=="LEGION-2020"     GOTO :LEGION-2020
 
 :Default
-SET ERROR_MESSAGE=[ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
+SET ERROR_MESSAGE=[%ME%] [ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
    echo Running PyCharm IDE for %USERNAME% on %COMPUTERNAME%
-   echo for the %venv_environment% environment    
+   echo for the %venv_environment% environment
    cd .\py_app
    call %venv_environment%\Scripts\activate.bat
    call "C:\Program Files\JetBrains\PyCharm Community Edition 2023.2.3\bin\pycharm64.exe" "%IDE_START_DIR%"
@@ -40,7 +40,7 @@ IF "%USERNAME%"=="pierre" (
    GOTO CLEAN_EXIT
 )
 
-SET ERROR_MESSAGE=[ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
+SET ERROR_MESSAGE=[%ME%] [ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :ERROR_EXIT

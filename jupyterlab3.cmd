@@ -24,18 +24,18 @@ GOTO ERROR_EXIT
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
    echo Running jupyter lab for %USERNAME% on %COMPUTERNAME%
-   echo for the %conda_environment% environment
-   call C:\myPrograms\anaconda3\Scripts\activate.bat
-   call conda activate %conda_environment%
+   echo for the %venv_environment% environment
+   cd .\py_app
+   call %venv_environment%\Scripts\activate.bat
    call jupyter lab
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="pierre" (
    echo Running jupyter lab for %USERNAME% on %COMPUTERNAME%
-   echo for the %conda_environment% environment
-   call C:\myPrograms\anaconda3\Scripts\activate.bat
-   call conda activate %conda_environment%
+   echo for the %venv_environment% environment
+   cd .\py_app
+   call %venv_environment%\Scripts\activate.bat
    call jupyter lab
    GOTO CLEAN_EXIT
 )
