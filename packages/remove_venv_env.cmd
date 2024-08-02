@@ -11,7 +11,7 @@ SET PDRIVE=%~d0
 :: Setting the directory and drive of this commandfile
 SET CMD_DIR=%~dp0
 
-SET ERROR_MESSAGE=[INFO ] No error
+SET ERROR_MESSAGE=[%ME%] [INFO ] No error
 
 SET "VENV_CONF_PATH=..\..\..\code\py_conf\_legion-2020-venv\"
 SET "VENV_APP_PATH=..\..\..\code\py_app\"
@@ -22,7 +22,7 @@ IF EXIST %VENV_ENV_NAME_FILE% (
 	SET /p venv_environment=<%VENV_ENV_NAME_FILE%
 )
 IF "%venv_environment%" == "" (
-	SET ERROR_MESSAGE=[ERROR] file %VENV_ENV_NAME_FILE% does not exist or is empty ...
+	SET ERROR_MESSAGE=[%ME%] [ERROR] file %VENV_ENV_NAME_FILE% does not exist or is empty ...
 	GOTO ERROR_EXIT
 )
 
@@ -30,22 +30,22 @@ IF "%venv_environment%" == "" (
 SET "venv_environment_path=%VENV_APP_PATH%%venv_environment%"
 
 IF NOT EXIST %VENV_APP_PATH%%venv_environment% (
-	SET ERROR_MESSAGE=[ERROR] %VENV_APP_PATH%%venv_environment% does not exist already ...
+	SET ERROR_MESSAGE=[%ME%] [ERROR] %VENV_APP_PATH%%venv_environment% does not exist already ...
 	GOTO ERROR_EXIT
 )
 
 IF "%COMPUTERNAME%"=="LEGION-2020"     GOTO :LEGION-2020
 
 :Default
-SET ERROR_MESSAGE=[ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
+SET ERROR_MESSAGE=[%ME%] [ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
-   echo [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [INFO ] Removing %venv_environment_path% ...
+   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   echo [%ME%] [INFO ] Removing %venv_environment_path% ...
    echo.
-   echo [INFO ] Exporting the latest settings ...
+   echo [%ME%] [INFO ] Exporting the latest settings ...
    call export_venv_env.cmd
    pause
    cd %VENV_APP_PATH%
@@ -55,10 +55,10 @@ IF "%USERNAME%"=="developer" (
 )
 
 IF "%USERNAME%"=="myAdm" (
-   echo [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [INFO ] Removing %venv_environment_path% ...
+   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   echo [%ME%] [INFO ] Removing %venv_environment_path% ...
    echo.
-   echo [INFO ] Exporting the latest settings ...
+   echo [%ME%] [INFO ] Exporting the latest settings ...
    call export_venv_env.cmd
    pause
    cd %VENV_APP_PATH%
@@ -66,7 +66,7 @@ IF "%USERNAME%"=="myAdm" (
    echo.
    GOTO CLEAN_EXIT
 )
-SET ERROR_MESSAGE=[ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
+SET ERROR_MESSAGE=[%ME%] [ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :ERROR_EXIT
