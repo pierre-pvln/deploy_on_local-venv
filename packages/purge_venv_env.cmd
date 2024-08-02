@@ -32,10 +32,8 @@ IF "%venv_environment%" == "" (
 :: expand the environments path 
 SET "venv_environment_path=%VENV_APP_PATH%%venv_environment%"
 
-
-:: set python / venv requirements.txt file
-IF NOT EXIST %VENV_ENV_NAME_FILE% (
-	SET ERROR_MESSAGE=[ERROR] file %VENV_CONF_TXT_FILE% does not exist ...
+IF NOT EXIST %VENV_APP_PATH%%venv_environment% (
+	SET ERROR_MESSAGE=[ERROR] %VENV_APP_PATH%%venv_environment% does not exist already ...
 	GOTO ERROR_EXIT
 )
 
@@ -48,32 +46,41 @@ GOTO ERROR_EXIT
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
    echo [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [INFO ] Creating new venv at %venv_environment_path% 
+   echo [INFO ] Purging %venv_environment_path% ...
+   echo.
+   echo [INFO ] Exporting the latest settings ...
+   call export_venv_env.cmd
+   pause
+   echo [INFO ] Removing %venv_environment_path% ...
+   cd %VENV_APP_PATH%
+   rmdir /S %venv_environment% 
+   echo.
+   echo [INFO ] Creating new %venv_environment_path% ...
    echo [INFO ] Using python version:
    %PYTHON_EXCUTABLE% -V
- 
-   IF EXIST %venv_environment_path% (
-       SET ERROR_MESSAGE=[ERROR] %venv_environment_path% already exists ...
-       GOTO ERROR_EXIT
-   )
    %PYTHON_EXCUTABLE% -m venv %venv_environment_path%
+   echo.
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="myAdm" (
    echo [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [INFO ] Creating new venv at %venv_environment_path% 
+   echo [INFO ] Purging %venv_environment_path% ...
+   echo.
+   echo [INFO ] Exporting the latest settings ...
+   call export_venv_env.cmd
+   pause
+   echo [INFO ] Removing %venv_environment_path% ...
+   cd %VENV_APP_PATH%
+   rmdir /S %venv_environment% 
+   echo.
+   echo [INFO ] Creating new %venv_environment_path% ...
    echo [INFO ] Using python version:
    %PYTHON_EXCUTABLE% -V
- 
-   IF EXIST %venv_environment_path% (
-       SET ERROR_MESSAGE=[ERROR] %venv_environment_path% already exists ...
-       GOTO ERROR_EXIT
-   )
    %PYTHON_EXCUTABLE% -m venv %venv_environment_path%
+   echo.
    GOTO CLEAN_EXIT
 )
-
 SET ERROR_MESSAGE=[ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
