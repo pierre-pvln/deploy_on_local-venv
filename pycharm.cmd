@@ -27,7 +27,7 @@ IF "%USERNAME%"=="developer" (
    echo for the %venv_environment% environment
    cd .\py_app
    call %venv_environment%\Scripts\activate.bat
-   call "C:\Program Files\JetBrains\PyCharm Community Edition 2023.2.3\bin\pycharm64.exe" "%IDE_START_DIR%"
+   call "C:\Program Files\JetBrains\PyCharm Community Edition\bin\pycharm64.exe" "%IDE_START_DIR%"
    GOTO CLEAN_EXIT
 )
 
@@ -36,7 +36,7 @@ IF "%USERNAME%"=="pierre" (
    echo for the %venv_environment% environment    
    cd .\py_app
    call %venv_environment%\Scripts\activate.bat
-   call "C:\Program Files\JetBrains\PyCharm Community Edition 2023.2.3\bin\pycharm64.exe" "%IDE_START_DIR%"
+   call "C:\Program Files\JetBrains\PyCharm Community Edition\bin\pycharm64.exe" "%IDE_START_DIR%"
    GOTO CLEAN_EXIT
 )
 
