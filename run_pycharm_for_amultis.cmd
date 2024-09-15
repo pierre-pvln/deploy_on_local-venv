@@ -17,6 +17,7 @@ SET "VENV_CONF_PATH=..\..\code\py_conf\_legion-2020-venv\"
 SET "VENV_APP_PATH=..\..\code\py_app\"
 SET "VENV_ENV_NAME_FILE=%VENV_CONF_PATH%_env_name.txt"
 SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%requirements.txt"
+SET "SECRETS_FOLDER=..\"
 
 :: set python / venv environment name
 IF EXIST %VENV_ENV_NAME_FILE% (
