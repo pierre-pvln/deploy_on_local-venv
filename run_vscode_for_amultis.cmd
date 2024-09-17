@@ -105,7 +105,6 @@ IF EXIST %SECRETS_FOLDER%.aws_apigw_key (
 ) ELSE (
 	ECHO [%ME%] [INFO   ] AWS_API_GATEWAY_KEY environment variable not set ...    
 	ECHO.
-
 )
 
 :: set OPENWEATHER_API_GATEWAY_KEY
@@ -117,7 +116,28 @@ IF EXIST %SECRETS_FOLDER%.openweather_apigw_key (
 ) ELSE (
 	ECHO [%ME%] [INFO   ] OPENWEATHER_API_GATEWAY_KEY environment variable not set ...    
 	ECHO.
+)
 
+:: set DSHM_API_KEY
+:: 
+IF EXIST %SECRETS_FOLDER%.dshm_api_key (
+	SET /p DSHM_API_KEY=<%SECRETS_FOLDER%.DSHM_API_KEY
+	ECHO [%ME%] [INFO   ] DSHM_API_KEY environment variable set ...
+	ECHO.
+) ELSE (
+	ECHO [%ME%] [INFO   ] DSHM_API_KEY environment variable not set ...    
+	ECHO.
+)
+
+:: set 1NCE_API_PAIR
+:: 
+IF EXIST %SECRETS_FOLDER%.1nce_api_pair (
+	SET /p 1NCE_API_PAIR=<%SECRETS_FOLDER%.1nce_api_pair
+	ECHO [%ME%] [INFO   ] 1NCE_API_PAIR environment variable set ...
+	ECHO.
+) ELSE (
+	ECHO [%ME%] [INFO   ] 1NCE_API_PAIR environment variable not set ...    
+	ECHO.
 )
 
 :: start IDE

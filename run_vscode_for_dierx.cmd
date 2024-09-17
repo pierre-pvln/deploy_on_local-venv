@@ -40,7 +40,7 @@ IF NOT EXIST %VENV_ENV_NAME_FILE% (
 :: set any required environment variables
 
 :: AWS_PROFILE_NAME in lowercase !
-SET AWS_PROFILE_NAME=amultis
+SET AWS_PROFILE_NAME=dierx-nester-visuals
 ECHO [%ME%] [INFO   ] AWS_PROFILE_NAME: %AWS_PROFILE_NAME%
 
 :: SHOULD CHECK THIS !! ALSO VALID FOR VENV ?
@@ -141,7 +141,7 @@ IF EXIST %SECRETS_FOLDER%.1nce_api_pair (
 )
 
 :: start IDE
-CALL pycharm.cmd
+CALL vscode.cmd
 
 GOTO CLEAN_EXIT
 
