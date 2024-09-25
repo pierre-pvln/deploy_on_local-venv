@@ -24,14 +24,14 @@ GOTO ERROR_EXIT
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
    echo Running VS Code IDE for %USERNAME% on %COMPUTERNAME%
-   echo for the %conda_environment% environment
+   echo for the %venv_environment% environment
    cd .\py_app
    if not exist .\.vscode (
       mkdir .\.vscode
    )
    if not exist .\.vscode\settings.json (
 	echo { 
-	echo    	"python.pythonPath": "C:\\myPrograms\\anaconda3\\envs\\%conda_environment%\\python.exe", 
+	echo    	"python.pythonPath": ".\\%venv_environment%\\python.exe", 
 	echo		"python.terminal.activateEnvironment": true,
 	echo		"terminal.integrated.profiles.windows": {
 	echo			"PowerShell": {
@@ -53,22 +53,21 @@ IF "%USERNAME%"=="developer" (
 	echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
 	echo	} 
 	)>.\.vscode\settings.json
-   call C:\myPrograms\anaconda3\Scripts\activate.bat
-   call conda activate %conda_environment%
+   call %venv_environment%\Scripts\activate.bat
    call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="pierre" (
    echo Running VS Code IDE for %USERNAME% on %COMPUTERNAME%
-   echo for the %conda_environment% environment
+   echo for the %venv_environment% environment
    cd .\py_app
    if not exist .\.vscode (
       mkdir .\.vscode
    )
    if not exist .\.vscode\settings.json (
 	echo { 
-	echo    	"python.pythonPath": "C:\\myPrograms\\anaconda3\\envs\\%conda_environment%\\python.exe", 
+	echo    	"python.pythonPath": "%venv_environment_path%\\python.exe",  
 	echo		"python.terminal.activateEnvironment": true,
 	echo		"terminal.integrated.profiles.windows": {
 	echo			"PowerShell": {
@@ -90,8 +89,7 @@ IF "%USERNAME%"=="pierre" (
 	echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
 	echo	} 
 	)>.\.vscode\settings.json
-   call C:\myPrograms\anaconda3\Scripts\activate.bat
-   call conda activate %conda_environment%
+   call %venv_environment%\Scripts\activate.bat
    call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
    GOTO CLEAN_EXIT
 )
