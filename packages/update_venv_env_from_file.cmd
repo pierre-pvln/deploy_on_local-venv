@@ -1,4 +1,4 @@
-@ECHO off
+::@ECHO off
 SETLOCAL ENABLEEXTENSIONS
 
 :: BASIC SETTINGS
@@ -19,7 +19,7 @@ SET "VENV_ENV_NAME_FILE=%VENV_CONF_PATH%_env_name.txt"
 SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%requirements.txt"
 
 :: set python / venv environment name
-IF EXIST %VENV_ENV_NAME_FILE% (
+IF EXIST "%VENV_ENV_NAME_FILE%" (
 	SET /p venv_environment=<%VENV_ENV_NAME_FILE%
 )
 IF "%venv_environment%" == "" (
@@ -30,10 +30,17 @@ IF "%venv_environment%" == "" (
 :: expand the environments path 
 SET "venv_environment_path=%VENV_APP_PATH%%venv_environment%"
 
+DIR %VENV_APP_PATH%%venv_environment%
 
 :: set python / venv requirements.txt file
-IF NOT EXIST %VENV_ENV_NAME_FILE% (
+IF NOT EXIST "%VENV_ENV_NAME_FILE%" (
 	SET ERROR_MESSAGE=[%ME%] [ERROR] file %VENV_CONF_TXT_FILE% does not exist ...
+	GOTO ERROR_EXIT
+)
+
+:: check for activate.bat file
+IF NOT EXIST "%venv_environment_path%\Scripts\activate.bat" (
+	SET ERROR_MESSAGE=[%ME%] [ERROR] file %venv_environment_path%\Scripts\activate.bat does not exist ...
 	GOTO ERROR_EXIT
 )
 
@@ -48,7 +55,7 @@ IF "%USERNAME%"=="developer" (
    echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
    echo [%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
    echo [%ME%] [INFO ] and %VENV_CONF_TXT_FILE% as settings
-   call %venv_environment_path%\Scripts\activate.bat
+   call "%venv_environment_path%\Scripts\activate.bat"
    echo [%ME%] [INFO ] With python version:
    python -V 
    echo.
