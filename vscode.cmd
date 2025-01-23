@@ -30,30 +30,32 @@ IF "%USERNAME%"=="developer" (
       mkdir .\.vscode
    )
    if not exist .\.vscode\settings.json (
-    echo Creating .\.vscode\settings.json for VS Code IDE
- 	echo { 
-	echo    	"python.pythonPath": ".\\%venv_environment%\\python.exe", 
-	echo		"python.terminal.activateEnvironment": true,
-	echo		"terminal.integrated.profiles.windows": {
-	echo			"PowerShell": {
-	echo			"source": "PowerShell",
-	echo			"icon": "terminal-powershell"
-	echo		},
-	echo		"Command Prompt": {
-	echo			"path": [
-	echo				"${env:windir}\\Sysnative\\cmd.exe",
-	echo				"${env:windir}\\System32\\cmd.exe"
-	echo			],
-	echo			"args": [],
-	echo			"icon": "terminal-cmd"
-	echo		},
-	echo		"Git Bash": {
-	echo			"source": "Git Bash"
-	echo		}
-	echo		},
-	echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
-	echo	} 
-	)>.\.vscode\settings.json
+      echo Creating .\.vscode\settings.json for VS Code IDE
+      (
+	  echo { 
+      echo    	"python.pythonPath": "..\\%venv_environment%\\python.exe",  
+      echo		"python.terminal.activateEnvironment": true,
+      echo		"terminal.integrated.profiles.windows": {
+      echo			"PowerShell": {
+      echo			"source": "PowerShell",
+      echo			"icon": "terminal-powershell"
+      echo		},
+      echo		"Command Prompt": {
+      echo			"path": [
+      echo				"${env:windir}\\Sysnative\\cmd.exe",
+	  echo				"${env:windir}\\System32\\cmd.exe"
+      echo			],
+      echo			"args": [],
+      echo			"icon": "terminal-cmd"
+      echo		},
+      echo		"Git Bash": {
+      echo			"source": "Git Bash"
+      echo		}
+      echo		},
+      echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
+      echo	} 
+      )>.\.vscode\settings.json
+   ) 
    call %venv_environment%\Scripts\activate.bat
    call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
    GOTO CLEAN_EXIT
@@ -67,30 +69,32 @@ IF "%USERNAME%"=="pierre" (
       mkdir .\.vscode
    )
    if not exist .\.vscode\settings.json (
-    echo Creating .\.vscode\settings.json for VS Code IDE
-	echo { 
-	echo    	"python.pythonPath": "%venv_environment_path%\\python.exe",  
-	echo		"python.terminal.activateEnvironment": true,
-	echo		"terminal.integrated.profiles.windows": {
-	echo			"PowerShell": {
-	echo			"source": "PowerShell",
-	echo			"icon": "terminal-powershell"
-	echo		},
-	echo		"Command Prompt": {
-	echo			"path": [
-	echo				"${env:windir}\\Sysnative\\cmd.exe",
-	echo				"${env:windir}\\System32\\cmd.exe"
-	echo			],
-	echo			"args": [],
-	echo			"icon": "terminal-cmd"
-	echo		},
-	echo		"Git Bash": {
-	echo			"source": "Git Bash"
-	echo		}
-	echo		},
-	echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
-	echo	} 
-	)>.\.vscode\settings.json
+      echo Creating .\.vscode\settings.json for VS Code IDE
+      (
+	  echo { 
+      echo    	"python.pythonPath": "..\\%venv_environment%\\python.exe",  
+      echo		"python.terminal.activateEnvironment": true,
+      echo		"terminal.integrated.profiles.windows": {
+      echo			"PowerShell": {
+      echo			"source": "PowerShell",
+      echo			"icon": "terminal-powershell"
+      echo		},
+      echo		"Command Prompt": {
+      echo			"path": [
+      echo				"${env:windir}\\Sysnative\\cmd.exe",
+	  echo				"${env:windir}\\System32\\cmd.exe"
+      echo			],
+      echo			"args": [],
+      echo			"icon": "terminal-cmd"
+      echo		},
+      echo		"Git Bash": {
+      echo			"source": "Git Bash"
+      echo		}
+      echo		},
+      echo		"terminal.integrated.defaultProfile.windows": "Command Prompt",
+      echo	} 
+      )>.\.vscode\settings.json
+   )  
    call %venv_environment%\Scripts\activate.bat
    call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
    GOTO CLEAN_EXIT
