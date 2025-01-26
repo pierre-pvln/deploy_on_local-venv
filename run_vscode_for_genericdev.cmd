@@ -140,6 +140,17 @@ IF EXIST %SECRETS_FOLDER%.1nce_api_pair (
 	ECHO.
 )
 
+:: set RXM_AUTH_PAIR
+:: 
+IF EXIST %SECRETS_FOLDER%.rxm_auth_pair (
+	SET /p RXM_AUTH_PAIR=<%SECRETS_FOLDER%.rxm_auth_pair
+	ECHO [%ME%] [INFO   ] RXM_AUTH_PAIR environment variable set ...
+	ECHO.
+) ELSE (
+	ECHO [%ME%] [INFO   ] RXM_AUTH_PAIR environment variable not set ...    
+	ECHO.
+)
+
 :: start IDE
 CALL vscode.cmd
 
