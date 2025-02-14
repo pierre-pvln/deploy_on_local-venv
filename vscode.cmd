@@ -33,7 +33,7 @@ IF "%USERNAME%"=="developer" (
       echo Creating .\.vscode\settings.json for VS Code IDE
       (
 	  echo { 
-      echo    	"python.pythonPath": "..\\%venv_environment%\\python.exe",  
+      echo    	"python.pythonPath": "..\\%venv_environment%\\Scripts\\python.exe",  
       echo		"python.terminal.activateEnvironment": true,
       echo		"terminal.integrated.profiles.windows": {
       echo			"PowerShell": {
