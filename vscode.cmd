@@ -98,7 +98,7 @@ IF "%USERNAME%"=="pierre" (
       )>.\.vscode\settings.json
    )  
    call %venv_environment%\Scripts\activate.bat
-   call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
+   call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" .
    GOTO CLEAN_EXIT
 )
 
