@@ -25,15 +25,17 @@ GOTO ERROR_EXIT
 IF "%USERNAME%"=="developer" (
    echo Running VS Code IDE for %USERNAME% on %COMPUTERNAME%
    echo for the %venv_environment% environment
-   cd .\py_app
+::   cd .\py_app
+   cd .\
+
    if not exist .\.vscode (
       mkdir .\.vscode
    )
    if not exist .\.vscode\settings.json (
-      echo Creating .\.vscode\settings.json for VS Code IDE
+      echo Creating .\.vscode\settings.json for VSCode IDE
       (
 	  echo { 
-      echo    	"python.pythonPath": "..\\%venv_environment%\\Scripts\\python.exe",  
+      echo    	"python.defaultInterpreterPath": ".\\py_app\\.venv\\Scripts\\python.exe",  
       echo		"python.terminal.activateEnvironment": true,
       echo		"terminal.integrated.profiles.windows": {
       echo			"PowerShell": {
@@ -56,7 +58,7 @@ IF "%USERNAME%"=="developer" (
       echo	} 
       )>.\.vscode\settings.json
    ) 
-   call %venv_environment%\Scripts\activate.bat
+   call .\py_app\\%venv_environment%\Scripts\activate.bat
    call "C:\Users\%USERNAME%\AppData\Local\Programs\Microsoft VS Code\Code.exe" . 
    GOTO CLEAN_EXIT
 )

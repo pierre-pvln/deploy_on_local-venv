@@ -32,20 +32,20 @@ CD %CMD_DIR%
 IF EXIST ".git\" (
     IF "%USERNAME%"=="developer" (
 	    ECHO [%ME%] [INFO ] Setting git for user: developer and project: %CurrDirName%  ...
-        git config user.name "Pierre Veelen | PVLN | %CurrDirName%"
-        git config user.email "pierre@pvln.nl"
+        git config user.name "Pierre Veelen | aMultis.dev | %CurrDirName%"
+        git config user.email "pierre@amultis.dev"
         GOTO CLEAN_EXIT
     )
     IF "%USERNAME%"=="pierre" (
 	    ECHO [%ME%] [INFO ] Setting git for user: pierre and project: %CurrDirName% ...
-        git config user.name "Pierre Veelen | IPHEION | %CurrDirName%"
-        git config user.email "pierre@ipheion.eu"
+        git config user.name "Pierre Veelen | aMultis.eu | %CurrDirName%"
+        git config user.email "pierre@amultis.eu"
         GOTO CLEAN_EXIT
     )
     rem for all other cases
     ECHO [%ME%] [INFO ] Setting git for user: UNKOWN and project: %CurrDirName% ...
-    git config user.name "Pierre Veelen | UNKOWN | %CurrDirName%"
-    git config user.email "pierre@ipheion.eu"
+    git config user.name "Pierre Veelen | VEELEN.NET | %CurrDirName%"
+    git config user.email "pierre@veelen.net"
     GOTO CLEAN_EXIT
 )
 ECHO [%ME%] [INFO ] .git folder not found ...
