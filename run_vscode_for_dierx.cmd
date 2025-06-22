@@ -118,6 +118,17 @@ IF EXIST %SECRETS_FOLDER%.openweather_apigw_key (
 	ECHO.
 )
 
+:: set WEATHERAPI_API_KEY
+:: 
+IF EXIST %SECRETS_FOLDER%.weatherapi_api_key (
+	SET /p WEATHERAPI_API_KEY=<%SECRETS_FOLDER%.weatherapi_api_key
+	ECHO [%ME%] [INFO   ] WEATHERAPI_API_KEY environment variable set ...
+	ECHO.
+) ELSE (
+	ECHO [%ME%] [INFO   ] WEATHERAPI_API_KEY environment variable not set ...    
+	ECHO.
+)
+
 :: set DSHM_API_KEY
 :: 
 IF EXIST %SECRETS_FOLDER%.dshm_api_key (
