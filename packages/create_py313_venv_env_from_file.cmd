@@ -1,4 +1,4 @@
-::@ECHO off
+@ECHO off
 SETLOCAL ENABLEEXTENSIONS
 
 :: BASIC SETTINGS
@@ -17,9 +17,11 @@ SET "VENV_CONF_PATH=..\..\..\code\py_conf\_legion-2020-venv\"
 SET "VENV_APP_PATH=..\..\..\code\py_app\"
 SET "VENV_ENV_NAME_FILE=%VENV_CONF_PATH%_env_name.txt"
 SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%requirements.txt"
+SET "PYTHON_VERSION=Python313"
+SET "PYTHON_EXCUTABLE=C:\%PYTHON_VERSION%\python"
 
 :: set python / venv environment name
-IF EXIST "%VENV_ENV_NAME_FILE%" (
+IF EXIST %VENV_ENV_NAME_FILE% (
 	SET /p venv_environment=<%VENV_ENV_NAME_FILE%
 )
 IF "%venv_environment%" == "" (
@@ -30,19 +32,10 @@ IF "%venv_environment%" == "" (
 :: expand the environments path 
 SET "venv_environment_path=%VENV_APP_PATH%%venv_environment%"
 
-:: DEBUG
-::DIR %VENV_APP_PATH%%venv_environment%
-:: DEBUG
 
 :: set python / venv requirements.txt file
-IF NOT EXIST "%VENV_ENV_NAME_FILE%" (
+IF NOT EXIST %VENV_ENV_NAME_FILE% (
 	SET ERROR_MESSAGE=[%ME%] [ERROR] file %VENV_CONF_TXT_FILE% does not exist ...
-	GOTO ERROR_EXIT
-)
-
-:: check for activate.bat file
-IF NOT EXIST "%venv_environment_path%\Scripts\activate.bat" (
-	SET ERROR_MESSAGE=[%ME%] [ERROR] file %venv_environment_path%\Scripts\activate.bat does not exist ...
 	GOTO ERROR_EXIT
 )
 
@@ -55,25 +48,43 @@ GOTO ERROR_EXIT
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
    echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
-   echo [%ME%] [INFO ] and %VENV_CONF_TXT_FILE% as settings
-   call "%venv_environment_path%\Scripts\activate.bat"
-   echo [%ME%] [INFO ] With python version:
-   python -V 
+   echo [%ME%] [INFO ] Creating new venv at %venv_environment_path% 
+   echo [%ME%] [INFO ] Using python version:
+   %PYTHON_EXCUTABLE% -V
    echo.
-   call pip install -r %VENV_CONF_TXT_FILE%
+   
+   IF EXIST %venv_environment_path% (
+       SET ERROR_MESSAGE=[%ME%] [ERROR] %venv_environment_path% already exists ...
+       GOTO ERROR_EXIT
+   )
+   %PYTHON_EXCUTABLE% -m venv %venv_environment_path%
+   echo.   
+   cd %CMD_DIR%
+   echo [%ME%] [INFO ] Creating %venv_environment_path% ...
+   call  update_venv_env_from_file
+   echo.
+
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="myAdm" (
    echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
-   echo [%ME%] [INFO ] and %VENV_CONF_TXT_FILE% as settings
-   call %venv_environment_path%\Scripts\activate.bat
-   echo [%ME%] [INFO ] With python version:
-   python -V 
+   echo [%ME%] [INFO ] Creating new venv at %venv_environment_path% 
+   echo [%ME%] [INFO ] Using python version:
+   %PYTHON_EXCUTABLE% -V
+ 
+   echo [%ME%] [INFO ] Creating structure for %venv_environment_path% ...
+   IF EXIST %venv_environment_path% (
+       SET ERROR_MESSAGE=[%ME%] [ERROR] %venv_environment_path% already exists ...
+       GOTO ERROR_EXIT
+   )
+   %PYTHON_EXCUTABLE% -m venv %venv_environment_path%
+   echo.    
+   cd %CMD_DIR%
+   echo [%ME%] [INFO ] Creating %venv_environment_path% ...
+   call  update_venv_env_from_file
    echo.
-   call pip install -r %VENV_CONF_TXT_FILE%
+   
    GOTO CLEAN_EXIT
 )
 
