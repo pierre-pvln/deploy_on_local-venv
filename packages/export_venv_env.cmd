@@ -1,5 +1,5 @@
 @ECHO off
-SETLOCAL ENABLEEXTENSIONS
+SETLOCAL ENABLEEXTENSIONS enabledelayedexpansion
 
 :: BASIC SETTINGS
 :: ==============
@@ -75,19 +75,48 @@ IF "%USERNAME%"=="developer" (
    echo %INDENT_TEXT%[%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
    call %venv_environment_path%\Scripts\activate.bat
    echo %INDENT_TEXT%[%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
-   call pip freeze > venv_env_as-built_LATEST.txt
-   call pip freeze > venv_env_as-built_%dtStamp%.txt
+
+   FOR /F "tokens=*" %%g IN ('python --version') DO (
+       SET THIS_PYTHON_VERSION=# For %%g
+   )
+   ECHO #=================================================== > venv_env_as-built_LATEST.txt
+   ECHO # >> venv_env_as-built_LATEST.txt
+   ECHO !THIS_PYTHON_VERSION! >> venv_env_as-built_LATEST.txt
+   ECHO # >> venv_env_as-built_LATEST.txt
+   ECHO #=================================================== >> venv_env_as-built_LATEST.txt
+   call pip freeze >> venv_env_as-built_LATEST.txt
+
+   ECHO #=================================================== > venv_env_as-built_%dtStamp%.txt
+   ECHO # >> venv_env_as-built_%dtStamp%.txt
+   ECHO !THIS_PYTHON_VERSION! >> venv_env_as-built_%dtStamp%.txt
+   ECHO # >> venv_env_as-built_%dtStamp%.txt
+   ECHO #=================================================== >> venv_env_as-built_%dtStamp%.txt
+   call pip freeze >> venv_env_as-built_%dtStamp%.txt
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="myAdm" (
    echo %INDENT_TEXT%[%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
    echo %INDENT_TEXT%[%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
-													
    call %venv_environment_path%\Scripts\activate.bat
    echo %INDENT_TEXT%[%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
-   call pip freeze > venv_env_as-built_LATEST.txt
-   call pip freeze > venv_env_as-built_%dtStamp%.txt
+
+   FOR /F "tokens=*" %%g IN ('python --version') DO (
+       SET THIS_PYTHON_VERSION=# For %%g
+   )
+   ECHO #=================================================== > venv_env_as-built_LATEST.txt
+   ECHO # >> venv_env_as-built_LATEST.txt
+   ECHO !THIS_PYTHON_VERSION! >> venv_env_as-built_LATEST.txt
+   ECHO # >> venv_env_as-built_LATEST.txt
+   ECHO #=================================================== >> venv_env_as-built_LATEST.txt
+   call pip freeze >> venv_env_as-built_LATEST.txt
+
+   ECHO #=================================================== > venv_env_as-built_%dtStamp%.txt
+   ECHO # >> venv_env_as-built_%dtStamp%.txt
+   ECHO !THIS_PYTHON_VERSION! >> venv_env_as-built_%dtStamp%.txt
+   ECHO # >> venv_env_as-built_%dtStamp%.txt
+   ECHO #=================================================== >> venv_env_as-built_%dtStamp%.txt
+   call pip freeze >> venv_env_as-built_%dtStamp%.txt
    GOTO CLEAN_EXIT
 )
 
