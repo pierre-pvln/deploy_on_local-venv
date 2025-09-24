@@ -5,6 +5,20 @@ SETLOCAL ENABLEEXTENSIONS
 :: ==============
 :: Setting the name of the script
 SET ME=%~n0
+
+:: Check if script is run as subscript. If so add IDENT_TEXT to ECHO
+SET INDENT_TEXT=
+:: FIND command returns errorlevel 1 if string not found
+:: in this case if ME is not in CMDCMDLINE 
+ECHO %CMDCMDLINE% | FIND /i "%ME%" >nul
+IF %ERRORLEVEL%==1 ( 
+   SET "INDENT_TEXT=[SUBSCRIPT] "
+)
+
+ECHO.
+ECHO ==============================================
+ECHO %INDENT_TEXT%[%ME%] [INFO ] Script started ...
+
 :: Setting the name of the directory
 SET PARENT=%~p0
 SET PDRIVE=%~d0
@@ -42,10 +56,10 @@ GOTO ERROR_EXIT
 
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
-   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Removing %venv_environment_path% ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Removing %venv_environment_path% ...
    echo.
-   echo [%ME%] [INFO ] Exporting the latest settings ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Exporting the latest settings ...
    call export_venv_env.cmd
    pause
    cd %VENV_APP_PATH%
@@ -55,10 +69,10 @@ IF "%USERNAME%"=="developer" (
 )
 
 IF "%USERNAME%"=="myAdm" (
-   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Removing %venv_environment_path% ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Removing %venv_environment_path% ...
    echo.
-   echo [%ME%] [INFO ] Exporting the latest settings ...
+   ECHO %INDENT_TEXT%[%ME%] [INFO ] Exporting the latest settings ...
    call export_venv_env.cmd
    pause
    cd %VENV_APP_PATH%
@@ -74,5 +88,8 @@ ECHO %ERROR_MESSAGE%
 
 :CLEAN_EXIT
 CD %CMD_DIR%
+ECHO.
+ECHO %INDENT_TEXT%[%ME%] [INFO ] Script ended ...
+ECHO ==============================================
 ::timeout /t 10
 PAUSE

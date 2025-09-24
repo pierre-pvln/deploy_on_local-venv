@@ -5,6 +5,20 @@ SETLOCAL ENABLEEXTENSIONS
 :: ==============
 :: Setting the name of the script
 SET ME=%~n0
+
+:: Check if script is run as subscript. If so add IDENT_TEXT to ECHO
+SET INDENT_TEXT=
+:: FIND command returns errorlevel 1 if string not found
+:: in this case if ME is not in CMDCMDLINE 
+ECHO %CMDCMDLINE% | FIND /i "%ME%" >nul
+IF %ERRORLEVEL%==1 (
+   SET "INDENT_TEXT=[SUBSCRIPT] "
+)
+
+ECHO.
+ECHO ==============================================
+ECHO %INDENT_TEXT%[%ME%] [INFO ] Script started ...
+
 :: Setting the name of the directory
 SET PARENT=%~p0
 SET PDRIVE=%~d0
@@ -16,7 +30,11 @@ SET ERROR_MESSAGE=[%ME%] [INFO ] No error
 SET "VENV_CONF_PATH=..\..\..\code\py_conf\_legion-2020-venv\"
 SET "VENV_APP_PATH=..\..\..\code\py_app\"
 SET "VENV_ENV_NAME_FILE=%VENV_CONF_PATH%_env_name.txt" 
-SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%requirements.txt"
+
+SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%\requirements.txt"
+IF EXIST "%VENV_CONF_PATH%\requirements\" (
+   SET "VENV_CONF_TXT_FILE=%VENV_CONF_PATH%\requirements\requirements.txt"
+)
 
 :: set python / venv environment name
 IF EXIST %VENV_ENV_NAME_FILE% (
@@ -48,32 +66,32 @@ IF "%HOUR:~0,1%" == " " (SET dtStamp=%dtStamp9%) ELSE (SET dtStamp=%dtStamp24%)
 IF "%COMPUTERNAME%"=="LEGION-2020"     GOTO :LEGION-2020
 
 :Default
-SET ERROR_MESSAGE=[%ME%] [ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
+SET ERROR_MESSAGE=%INDENT_TEXT%[%ME%] [ERROR] Unknown settings for COMPUTERNAME: %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :LEGION-2020
 IF "%USERNAME%"=="developer" (
-   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
+   echo %INDENT_TEXT%[%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   echo %INDENT_TEXT%[%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
    call %venv_environment_path%\Scripts\activate.bat
-   echo [%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
+   echo %INDENT_TEXT%[%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
    call pip freeze > venv_env_as-built_LATEST.txt
    call pip freeze > venv_env_as-built_%dtStamp%.txt
    GOTO CLEAN_EXIT
 )
 
 IF "%USERNAME%"=="myAdm" (
-   echo [%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
-   echo [%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
+   echo %INDENT_TEXT%[%ME%] [INFO ] Commands for %USERNAME% on %COMPUTERNAME% ...
+   echo %INDENT_TEXT%[%ME%] [INFO ] Using %venv_environment_path%\Scripts\activate.bat as command
 													
    call %venv_environment_path%\Scripts\activate.bat
-   echo [%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
+   echo %INDENT_TEXT%[%ME%] [INFO ] Exporting venv environment %venv_environment_path% ...
    call pip freeze > venv_env_as-built_LATEST.txt
    call pip freeze > venv_env_as-built_%dtStamp%.txt
    GOTO CLEAN_EXIT
 )
 
-SET ERROR_MESSAGE=[%ME%] [ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
+SET ERROR_MESSAGE=%INDENT_TEXT%[%ME%] [ERROR] Not a valid user (%USERNAME%) on %COMPUTERNAME% ...
 GOTO ERROR_EXIT
 
 :ERROR_EXIT
@@ -81,4 +99,7 @@ ECHO %ERROR_MESSAGE%
 
 :CLEAN_EXIT
 CD %CMD_DIR%
+ECHO.
+ECHO %INDENT_TEXT%[%ME%] [INFO ] Script ended ...
+ECHO ==============================================
 timeout /t 5
